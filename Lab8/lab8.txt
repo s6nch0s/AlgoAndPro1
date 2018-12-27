@@ -1,0 +1,53 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <cs50.h>
+typedef struct
+{
+	string mark;
+	string year;
+	string price;
+	string colour;
+}Point;
+int main(){
+	printf("Enter the number of cars : ");
+	int num=GetInt();
+	Point car[num];
+	for(int i=0;i<num;i++){
+		printf("Input the car's mark : ");
+		car[i].mark = GetString();
+		printf("Input the car's year : ");
+		car[i].year = GetString();
+		printf("Input the car's price : ");
+		car[i].price = GetString();
+		printf("Input the car's colour : ");
+		car[i].colour = GetString();
+		printf("\n");
+		}
+	FILE *fo;
+	fo=fopen("f.txt","w");
+	for(int i=0;i<num;i++){
+		fprintf( fo ,"Car#%i \n Mark : %s \n Year : %s \n Price : %s \n Colour : %s \n",i+1,car[i].mark,car[i].year,car[i].price,car[i].colour);
+		}
+	fclose(fo);
+	int year1=0;
+	printf("Input the year what you want\n");
+	int year=GetInt();
+	for(int i=0;i<num;i++){
+		year1=atoi(car[i].year);//conver string to int
+		if((year1)<year){
+			car[i].year = " ";
+			//free(car[i].year);
+			}
+		else{
+			car[i].year=car[i].year;
+			}
+		}
+	FILE *fi;
+	fi=fopen("f2.txt","w");
+	for(int i=0;i<num;i++){
+		fprintf(fi,"Car#%i \n Mark : %s \n Year : %s \n Price : %s \n Colour : %s \n",i+1,car[i].mark,car[i].year,car[i].price,car[i].colour);
+		}
+	fclose(fi);
+			
+}

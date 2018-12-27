@@ -1,0 +1,86 @@
+#include<stdio.h>
+#include<stdlib.h>
+#include<ctype.h>
+#define  BUFSIZE   512
+#define  BUFWORD   64
+static int first_word(const char** s, char* w);
+static int is_word(const char* s, const char* w);
+
+int main()
+{
+    char  line[BUFSIZE];
+     char  line1[BUFSIZE];
+    char  word[BUFWORD];
+    const char* ptr;
+
+     FILE * fo;
+     fo = fopen("test.txt", "rt");
+     if( (fo=fopen("test.txt", "rt")) == 0 ) {
+     // помилка!
+     printf("Error open file!!!\n");
+      }
+
+   FILE* fout = fopen("out.txt", "wt+");
+
+    while((ptr = fgets(line, sizeof(line), fo)) != NULL) {
+        if(! first_word(&ptr, word))
+            continue;
+        if(is_word(ptr, word))
+            fputs(line, fout);
+    }
+
+    fclose(fo);
+
+    fflush(fout);
+    fclose(fout);
+
+    getchar();
+
+    fo = fopen("test.txt", "rt");
+     if( (fo=fopen("test.txt", "rt")) == 0 ) {
+     // помилка
+     printf("Error open file!!!\n");
+      }
+
+    while((ptr = fgets(line, sizeof(line), fo)) != NULL) {
+        puts(line);
+    }
+     puts(line);
+    int i;
+
+    int kil=0;
+    for(i=0; i<strlen(line); i++){
+       if((line[i]=='a')||(line[i]=='e')||(line[i]=='i')||(line[i]=='o')||(line[i]=='u')||(line[i]=='y')){
+         kil++;
+        }
+    }
+
+    printf("\nCount of holosnuh: %i", kil);
+
+    fclose(fo);
+    return 0;
+}
+//виділяємо(копіюємо) перше слово в стрічці
+static int first_word(const char** s, char* w){
+    const char* p = *s;
+    char* t = w;
+    while(*p && ! isalpha(*p))
+        ++p;
+    while(isalpha(*p) && (w - t < BUFWORD))
+        *w++ = *p++;
+    *w = '\0';
+    *s = p;
+    return (w != t);
+}
+
+// перевіряємо слова в стрічці(не підстрічки)
+static int is_word(const char* s, const char* w) {
+    const char*  t = s;
+    const size_t n = strlen(w);
+    while((s = strstr(s, w)) != NULL) {
+        if((t == s) || ! isalpha(*(s - 1)) && ! isalpha(*(s + n)))
+            return 1;
+        s += n;
+    }
+    return 0;
+}

@@ -1,0 +1,45 @@
+ #include <stdio.h>
+#include <cs50.h>
+void print(int a, int A[a]){
+	for(int i=0;i<a;i++){
+		printf("%d",A[i]);
+		if(i<(a-1)) printf(";");
+		}
+}
+void initilaze (int a, int A[a]){
+	for(int i=0;i<a;i++){
+		A[i]=rand()%30;
+		}
+}
+int min(int a,int A[a]){
+    for(int i=0;i<a-1;i++){
+           for(int j = 0 ; j < a - i - 1 ; j++) {  
+            if(A[j] > A[j+1]) {           
+               int tmp = A[j];
+               A[j] = A[j+1] ;
+               A[j+1] = tmp; 
+                }
+            }
+        }
+	int min1=A[0];
+	return min1;
+    }
+int main (){
+	int a=5,b=10,c=12;
+	int A[a],B[b],C[c];
+	initilaze (a, A);
+	initilaze (b, B);
+	initilaze (c, C);
+	printf("A={");
+	print(a, A);
+	printf("}\n");
+	printf("B={");
+	print(b, B);
+	printf("}\n");
+	printf("C={");
+	print(c, C);
+	printf("}\n");
+	int z1=min(a, A);
+	int z2=min(b, B);
+	int z3=min(c, C);
+	printf("%d is minimum of the firsd \n %d is minimum of the second \n %d is minimum of the third\n",z1,z2,z3);

@@ -1,0 +1,32 @@
+#include <string.h>
+#include <stdio.h>
+#define n 255
+_Bool checkpolindrom( char s[n])
+{
+int m=strlen(s);
+int k=m/2;
+int i;
+_Bool p=1;
+for(i=0; i<k; i++)
+    if(s[i]!=s[m-i-1])
+    p*=0;
+return p;
+}
+int main()
+{
+    char s1[n];
+    puts("Input text: ");
+    scanf("%s",&s1);
+    puts("Output text: ");
+    puts(s1);
+    printf("%i\n", strlen(s1));
+    int p;
+    int m=strlen(s1);
+    p=checkpolindrom(s1);
+        if(p==0)
+            printf("The text isn't polindrom\n");
+        else
+            printf("The text is polindrom\n");
+    printf("Hello world!\n");
+    return 0;
+}

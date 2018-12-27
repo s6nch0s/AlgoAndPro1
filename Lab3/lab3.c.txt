@@ -1,0 +1,25 @@
+#include <stdio.h>
+#include <math.h>
+#include <cs50.h>
+//Variant 15
+int main ()
+{
+	double x=0.1;
+	int n;
+	double croc=(1-0.1)/30;
+	for(;x<1.01;x+=croc){
+		double y;
+			y=((1+pow(x,2))/2)*atan(x)-x/2;	//function		
+		double a,SN=0,SE=0; //a=nnn chlen, SN-just sum, SE= sum with epsilon
+		for(n=1;n<30;n++){//sum
+			a=pow(-1,n+1)*pow(x,2*n+1)/(4*pow(n,2)-1);
+			SN+=a;			
+			}
+		do{ //sum with epsilon
+			a=pow(-1,n+1)*pow(x,2*n+1)/(4*pow(n,2)-1);
+			n++;
+			SE=SN+a;
+			}while(SN<=0.0001);
+		printf("X=%.2f SN=%f SE=%F Y=%f\n",x,SN,SE,y);
+		}	
+}
